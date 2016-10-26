@@ -1,3 +1,6 @@
-<h1>
-  {{title}}
-</h1>
+<div class="ui secondary pointing menu">
+  <a routerLink="/signin" *ngIf="!authService.userSignedIn()" class="item" routerLinkActive="active">Sign In</a>
+  <a (click)="onLogout()" *ngIf="authService.userSignedIn()" class="item">Logout</a>
+  <a routerLink="/settings" class="item" routerLinkActive="active">Settings</a>
+</div>
+<router-outlet></router-outlet>

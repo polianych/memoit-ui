@@ -1,42 +1,43 @@
-<div class="ui middle aligned center aligned grid">
+<div class="centred-form ui middle aligned center aligned grid">
   <div class="column">
-    <h2 class="ui teal image header">
+    <h2 class="ui blue image header">
       <div class="content">
         Sign up
       </div>
     </h2>
     <form class="ui large form" [class.error]="error" (ngSubmit)="onSubmit(form)" [formGroup]="form">
       <div class="ui stacked segment">
-        <div class="field">
+        <sm-loader [complete]="!isLoading" class="inverted" text="Loading..."></sm-loader>
+        <div class="field" [class.error]="errors.email">
           <div class="ui left icon input">
-            <i class="user icon"></i>
+            <i class="at icon"></i>
             <input type="text" formControlName="email" name="email" placeholder="E-mail address">
           </div>
         </div>
-        <div class="field">
+        <div class="field" [class.error]="errors.nickname">
           <div class="ui left icon input">
-            <i class="lock icon"></i>
+            <i class="user icon"></i>
             <input type="text" formControlName="nickname" name="nickname" placeholder="Nickname">
           </div>
         </div>
-        <div class="field">
+        <div class="field" [class.error]="errors.password">
           <div class="ui left icon input">
             <i class="lock icon"></i>
             <input type="password" formControlName="password" name="password" placeholder="Password">
           </div>
         </div>
-        <div class="field">
+        <div class="field" [class.error]="errors.password_confirmation">
           <div class="ui left icon input">
             <i class="lock icon"></i>
             <input type="password" formControlName="password_confirmation" name="password_confirmation" placeholder="Password confirmation">
           </div>
         </div>
-        <button type="submit" class="ui fluid large teal submit button" [disabled]="!form.valid">Register</button>
+        <sm-button class="fluid large primary submit {{isLoading ? 'loading' : ''}}" [disabled]="!form.valid">Register</sm-button>
       </div>
 
       <div class="ui error message">
         <ul class="list">
-          <li>Not valid credentials</li>
+          <li *ngFor="let msg of errorMsgs">{{msg}}</li>
         </ul>
       </div>
 
@@ -44,6 +45,11 @@
 
     <div class="ui message">
       Already have an account? <a routerLink="/signin">Sign In</a>
+      <br/>or<br/>
+      <app-oauth-modal #appOauthModal></app-oauth-modal>
+      <app-oauth-facebook-login [oauthModal]="appOauthModal"></app-oauth-facebook-login>
+      <app-oauth-google-login [oauthModal]="appOauthModal"></app-oauth-google-login>
+      <app-oauth-vk-login [oauthModal]="appOauthModal"></app-oauth-vk-login>
     </div>
   </div>
 </div>

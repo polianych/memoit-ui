@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from "@angular/forms";
 import { HttpModule } from '@angular/http';
@@ -11,13 +11,21 @@ import { AppComponent } from './app.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
+import { OauthFacebookLoginComponent } from './oauth-facebook-login/oauth-facebook-login.component';
+import { OauthModalComponent } from './oauth-modal/oauth-modal.component';
+import { OauthGoogleLoginComponent } from './oauth-google-login/oauth-google-login.component';
+import { OauthVkLoginComponent } from './oauth-vk-login/oauth-vk-login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignInComponent,
     SignUpComponent,
-    UserSettingsComponent
+    UserSettingsComponent,
+    OauthFacebookLoginComponent,
+    OauthModalComponent,
+    OauthGoogleLoginComponent,
+    OauthVkLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -34,6 +42,9 @@ import { UserSettingsComponent } from './user-settings/user-settings.component';
   ],
   providers: [
     AuthService
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ],
   bootstrap: [AppComponent]
 })

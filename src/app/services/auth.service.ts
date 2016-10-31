@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
 import {
-    Http,
-    Response,
-    Headers,
-    Request,
-    RequestMethod,
-    RequestOptions
+  Http,
+  Response,
+  Headers,
+  Request,
+  RequestMethod,
+  RequestOptions
 } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
@@ -44,19 +44,19 @@ export class AuthService implements CanActivate {
     }
   }
 
-  signUp(values: Object) {
+  signUp(values: Object): Observable<Response> {
     let body = JSON.stringify({ user: values });
     let response = this.post('/api/users', body);
     return response;
   }
 
-  signIn(values: Object) {
+  signIn(values: Object): Observable<Response> {
     let body = JSON.stringify({ user: values });
     let response = this.post('/api/sign_in', body);
     return response;
   }
 
-  signOut() {
+  signOut(): Observable<Response> {
     let response = this.delete('/api/sign_out');
     response.subscribe( res => {
       this.currentUserToken = null;
@@ -67,8 +67,14 @@ export class AuthService implements CanActivate {
     return response;
   }
 
-  validateToken() {
+  validateToken(): Observable<Response> {
     let response = this.get('/api/users/me');
+    return response;
+  }
+
+  oauthLogin(token: string, provider: string, nickname: any): Observable<Response> {
+    let body = JSON.stringify({ access_token: token, provider: provider, nickname: nickname});
+    let response = this.post('/api/oauth', body);
     return response;
   }
 

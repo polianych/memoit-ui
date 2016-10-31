@@ -4,12 +4,12 @@
 body {
   background-color: #DADADA;
 }
-.grid {
+.centred-form .grid {
   height: 100%;
 }
-.image {
+.centred-form .image {
   margin-top: -100px;
 }
-.column {
+.centred-form .column {
   max-width: 450px;
 }

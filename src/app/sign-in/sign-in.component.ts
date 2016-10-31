@@ -11,6 +11,10 @@ import { AuthService } from '../services/auth.service';
 export class SignInComponent implements OnInit {
   form: FormGroup;
   error: boolean = false;
+  errors = {};
+  errorMsgs = [];
+  isLoading: boolean = false;
+
 
   constructor(public authService: AuthService, public fb: FormBuilder, public router: Router) {
     this.form = fb.group({
@@ -23,9 +27,28 @@ export class SignInComponent implements OnInit {
   }
 
   onSubmit(form: FormGroup) {
+    this.isLoading = true;
+    this.clearErrors();
     this.authService.signIn(form.value)
-        .subscribe( (values) => {}, error => { console.log(error); this.error = true; }
-        );
+        .subscribe(
+          (values) => {
+            this.isLoading = false;
+          },
+          (msg) => {
+            console.log('Signin erro:', msg);
+            this.error = true;
+            this.isLoading = false;
+            if (msg.json().hasOwnProperty('errors')){
+              this.errorMsgs = msg.json().errors_full;
+              this.errors = msg.json().errors;
+            }
+        });
+  }
+
+  clearErrors() {
+    this.error = false;
+    this.errorMsgs = [];
+    this.errors = {};
   }
 
 }

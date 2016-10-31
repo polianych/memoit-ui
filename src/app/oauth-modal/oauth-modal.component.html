@@ -1,0 +1,39 @@
+<sm-modal #myModal class="small" title="Choose your nickname">
+  <modal-content>
+    <sm-loader [complete]="!isLoading" class="inverted" text="Loading..."></sm-loader>
+    <div class="ui two column centered grid">
+      <div class="column">
+        <form class="ui small form" [class.error]="error" (ngSubmit)="onSubmit(form)" [formGroup]="form">
+          <div class="field" [class.error]="errors.nickname">
+            <div class="ui left icon input">
+              <i class="user icon"></i>
+              <input type="text" formControlName="nickname" name="nickname" placeholder="Nickname">
+            </div>
+          </div>
+
+          <div class="ui error message">
+            <ul class="list">
+              <li *ngFor="let msg of errorMsgs">{{msg}}</li>
+            </ul>
+          </div>
+        </form>
+      </div>
+    </div>
+  </modal-content>
+  <modal-actions>
+    <sm-button (click)="myModal.hide()">Cancel</sm-button>
+    <sm-button (click)="onSubmit(form)" class="primary">Save</sm-button>
+  </modal-actions>
+</sm-modal>
+<sm-modal #emailModal class="small" title="Email is already taken">
+  <modal-content>
+    <div class="segment">
+      <div class="ui warning message">
+        Please, sign in with email/password.
+      </div>
+    </div>
+  </modal-content>
+  <modal-actions>
+    <sm-button (click)="onEmailOk()" class="primary">Ok</sm-button>
+  </modal-actions>
+</sm-modal>

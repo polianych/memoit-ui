@@ -1,15 +1,16 @@
-<div class="ui middle aligned center aligned grid">
+<div class="centred-form ui middle aligned center aligned grid">
   <div class="column">
-    <h2 class="ui teal image header">
+    <h2 class="ui blue image header">
       <div class="content">
         Sign In
       </div>
     </h2>
     <form class="ui large form" [class.error]="error" (ngSubmit)="onSubmit(form)" [formGroup]="form">
       <div class="ui stacked segment">
+        <sm-loader [complete]="!isLoading" class="inverted" text="Loading..."></sm-loader>
         <div class="field">
           <div class="ui left icon input">
-            <i class="user icon"></i>
+            <i class="at icon"></i>
             <input type="text" formControlName="email" name="email" placeholder="E-mail address">
           </div>
         </div>
@@ -19,12 +20,12 @@
             <input type="password" formControlName="password" name="password" placeholder="Password">
           </div>
         </div>
-        <button type="submit" class="ui fluid large teal submit button" [disabled]="!form.valid">Login</button>
+        <sm-button class="fluid large primary submit {{isLoading ? 'loading' : ''}}" [disabled]="!form.valid">Login</sm-button>
       </div>
 
       <div class="ui error message">
         <ul class="list">
-          <li>Not valid credentials</li>
+          <li *ngFor="let msg of errorMsgs">{{msg}}</li>
         </ul>
       </div>
 
@@ -32,6 +33,11 @@
 
     <div class="ui message">
       New to us? <a routerLink="/signup">Sign Up</a>
+      <br/>or<br/>
+      <app-oauth-modal #appOauthModal></app-oauth-modal>
+      <app-oauth-facebook-login [oauthModal]="appOauthModal"></app-oauth-facebook-login>
+      <app-oauth-google-login [oauthModal]="appOauthModal"></app-oauth-google-login>
+      <app-oauth-vk-login [oauthModal]="appOauthModal"></app-oauth-vk-login>
     </div>
   </div>
 </div>

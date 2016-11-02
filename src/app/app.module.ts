@@ -36,6 +36,7 @@ import { OauthVkLoginComponent } from './oauth-vk-login/oauth-vk-login.component
     RouterModule.forRoot([
       { path: '', redirectTo: '/signin', pathMatch: 'full' },
       { path: 'signin', component: SignInComponent },
+      { path: 'signin/vk', component: SignInComponent },
       { path: 'signup', component: SignUpComponent },
       { path: 'settings', component: UserSettingsComponent, canActivate: [AuthService] }
     ])

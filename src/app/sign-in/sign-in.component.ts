@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup} from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class SignInComponent implements OnInit {
   isLoading: boolean = false;
 
 
-  constructor(public authService: AuthService, public fb: FormBuilder, public router: Router) {
+  constructor(public authService: AuthService, public fb: FormBuilder, public router: Router, public route: ActivatedRoute) {
     this.form = fb.group({
       email:  ['', Validators.required],
       password:  ['', Validators.required]

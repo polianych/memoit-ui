@@ -11,8 +11,8 @@ import { AuthService } from '../services/auth.service';
 export class SignInComponent implements OnInit {
   form: FormGroup;
   error: boolean = false;
-  errors = {};
-  errorMsgs = [];
+  errors = [];
+  errorsFields = {};
   isLoading: boolean = false;
 
 
@@ -35,20 +35,19 @@ export class SignInComponent implements OnInit {
             this.isLoading = false;
           },
           (msg) => {
-            console.log('Signin erro:', msg);
             this.error = true;
             this.isLoading = false;
             if (msg.json().hasOwnProperty('errors')){
-              this.errorMsgs = msg.json().errors_full;
               this.errors = msg.json().errors;
+              this.errorsFields = msg.json().errors_fields;
             }
         });
   }
 
   clearErrors() {
     this.error = false;
-    this.errorMsgs = [];
-    this.errors = {};
+    this.errorsFields = {};
+    this.errors = [];
   }
 
 }

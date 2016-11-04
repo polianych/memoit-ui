@@ -14,8 +14,8 @@ export class OauthModalComponent implements OnInit {
   provider: string;
   form: FormGroup;
   error: boolean = false;
-  errors = {};
-  errorMsgs = [];
+  errors = [];
+  errorsFields = {};
   isLoading: boolean = false;
 
   constructor(public authService: AuthService, public fb: FormBuilder, public router: Router) {
@@ -40,12 +40,11 @@ export class OauthModalComponent implements OnInit {
           this.myModal.hide()
         },
         (msg) => {
-          console.log('Oauth error: ', msg);
           this.error = true;
           this.isLoading = false;
           if (msg.json().hasOwnProperty('errors')){
-            this.errorMsgs = msg.json().errors_full;
             this.errors = msg.json().errors;
+            this.errorsFields = msg.json().errors_fields;
           }
         }
     );
@@ -55,10 +54,11 @@ export class OauthModalComponent implements OnInit {
     this.emailModal.hide();
   }
 
+
   clearErrors() {
-    this.error = false;
-    this.errorMsgs = [];
-    this.errors = {};
+      this.error = false;
+      this.errorsFields = {};
+      this.errors = [];
   }
 
 }

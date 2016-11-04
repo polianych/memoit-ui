@@ -78,6 +78,19 @@ export class AuthService implements CanActivate {
     return response;
   }
 
+  resetPassword(values): Observable<Response> {
+    values.password_reset_url = 'http://memoit.local/signin/password-resets/%{id}?password_reset_token=%{password_reset_token}';
+    let body = JSON.stringify(values);
+    let response = this.post('/api/password_resets', body);
+    return response;
+  }
+
+  updatePassword(values, id, password_reset_token): Observable<Response> {
+    let body = JSON.stringify({ user: values, password_reset_token: password_reset_token });
+    let response = this.put('/api/password_resets/' + id, body);
+    return response;
+  }
+
   // Standard HTTP requests
   get(path: string): Observable<Response> {
     return this.sendHttpRequest(new RequestOptions({
@@ -135,20 +148,21 @@ export class AuthService implements CanActivate {
 
   private _handleResponse(response: Observable<Response>) {
       response.subscribe(res => {
+        console.log('succ in handle');
           this._parseAuthHeadersFromResponse(<any>res);
           if (res.json().hasOwnProperty('user')) {
             this.currentUser = res.json().user;
-          }
-          if (localStorage.getItem('redirectToAfterAuthentication')) {
-            this.router.navigate([localStorage.getItem('redirectToAfterAuthentication')]);
-            localStorage.removeItem('redirectToAfterAuthentication');
-          } else {
-            this.router.navigate(['/settings']);
-          }
+            if (localStorage.getItem('redirectToAfterAuthentication')) {
+              this.router.navigate([localStorage.getItem('redirectToAfterAuthentication')]);
+              localStorage.removeItem('redirectToAfterAuthentication');
+            } else {
+              this.router.navigate(['/settings']);
+            }
+        }
 
       }, error => {
           this._parseAuthHeadersFromResponse(<any>error);
-          console.log('Session Service: Error Fetching Response');
+          console.log('Auth Service Error: ', error);
       });
   }
 

@@ -1,26 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup} from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Component({
-  selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.css']
+  selector: 'app-password-resets-new',
+  templateUrl: './password-resets-new.component.html',
+  styleUrls: ['./password-resets-new.component.css']
 })
-export class SignUpComponent implements OnInit {
+export class PasswordResetsNewComponent implements OnInit {
   form: FormGroup;
+  success: boolean = false;
   error: boolean = false;
   errors = [];
   errorsFields = {};
   isLoading: boolean = false;
 
-  constructor(public authService: AuthService, public fb: FormBuilder, public router: Router) {
+  constructor(public authService: AuthService, public fb: FormBuilder, public router: Router, public route: ActivatedRoute) {
     this.form = fb.group({
-      email:  ['', Validators.required],
-      nickname:  ['', Validators.required],
-      password:  ['', Validators.required],
-      password_confirmation:  ['', Validators.required]
+      email:  ['', Validators.required]
     });
   }
 
@@ -30,13 +28,14 @@ export class SignUpComponent implements OnInit {
   onSubmit(form: FormGroup) {
     this.isLoading = true;
     this.clearErrors();
-    this.authService.signUp(form.value)
+    this.authService.resetPassword(form.value)
         .subscribe(
           (values) => {
-            this.clearErrors();
+            this.success = true;
             this.isLoading = false;
           },
           (msg) => {
+            this.success = false;
             this.error = true;
             this.isLoading = false;
             if (msg.json().hasOwnProperty('errors')){

@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { NgSemanticModule } from 'ng-semantic';
 import { AuthService } from './services/auth.service';
+import { UnauthorizedCanActivateService } from './services/unauthorized-canactivate.service';
 
 import { AppComponent } from './app.component';
 import { SignInComponent } from './sign-in/sign-in.component';
@@ -15,6 +16,9 @@ import { OauthFacebookLoginComponent } from './oauth-facebook-login/oauth-facebo
 import { OauthModalComponent } from './oauth-modal/oauth-modal.component';
 import { OauthGoogleLoginComponent } from './oauth-google-login/oauth-google-login.component';
 import { OauthVkLoginComponent } from './oauth-vk-login/oauth-vk-login.component';
+import { PasswordResetsNewComponent } from './password-resets-new/password-resets-new.component';
+import { PasswordResetsEditComponent } from './password-resets-edit/password-resets-edit.component';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +29,9 @@ import { OauthVkLoginComponent } from './oauth-vk-login/oauth-vk-login.component
     OauthFacebookLoginComponent,
     OauthModalComponent,
     OauthGoogleLoginComponent,
-    OauthVkLoginComponent
+    OauthVkLoginComponent,
+    PasswordResetsNewComponent,
+    PasswordResetsEditComponent
   ],
   imports: [
     BrowserModule,
@@ -35,14 +41,17 @@ import { OauthVkLoginComponent } from './oauth-vk-login/oauth-vk-login.component
     NgSemanticModule,
     RouterModule.forRoot([
       { path: '', redirectTo: '/signin', pathMatch: 'full' },
-      { path: 'signin', component: SignInComponent },
-      { path: 'signin/vk', component: SignInComponent },
-      { path: 'signup', component: SignUpComponent },
+      { path: 'signup', component: SignUpComponent, canActivate: [UnauthorizedCanActivateService] },
+      { path: 'signin', component: SignInComponent, canActivate: [UnauthorizedCanActivateService] },
+      { path: 'signin/vk', component: SignInComponent, canActivate: [UnauthorizedCanActivateService] },
+      { path: 'signin/password-resets', component: PasswordResetsNewComponent, canActivate: [UnauthorizedCanActivateService] },
+      { path: 'signin/password-resets/:id', component: PasswordResetsEditComponent, canActivate: [UnauthorizedCanActivateService] },
       { path: 'settings', component: UserSettingsComponent, canActivate: [AuthService] }
     ])
   ],
   providers: [
-    AuthService
+    AuthService,
+    UnauthorizedCanActivateService
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

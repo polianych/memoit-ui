@@ -4,7 +4,7 @@
     <div class="ui two column centered grid">
       <div class="column">
         <form class="ui small form" [class.error]="error" (ngSubmit)="onSubmit(form)" [formGroup]="form">
-          <div class="field" [class.error]="errors.nickname">
+          <div class="field" [class.error]="errorsFields.nickname">
             <div class="ui left icon input">
               <i class="user icon"></i>
               <input type="text" formControlName="nickname" name="nickname" placeholder="Nickname">
@@ -13,7 +13,7 @@
 
           <div class="ui error message">
             <ul class="list">
-              <li *ngFor="let msg of errorMsgs">{{msg}}</li>
+              <li *ngFor="let msg of errors">{{msg}}</li>
             </ul>
           </div>
         </form>

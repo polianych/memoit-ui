@@ -8,25 +8,25 @@
     <form class="ui large form" [class.error]="error" (ngSubmit)="onSubmit(form)" [formGroup]="form">
       <div class="ui stacked segment">
         <sm-loader [complete]="!isLoading" class="inverted" text="Loading..."></sm-loader>
-        <div class="field" [class.error]="errors.email">
+        <div class="field" [class.error]="errorsFields.email">
           <div class="ui left icon input">
             <i class="at icon"></i>
             <input type="text" formControlName="email" name="email" placeholder="E-mail address">
           </div>
         </div>
-        <div class="field" [class.error]="errors.nickname">
+        <div class="field" [class.error]="errorsFields.nickname">
           <div class="ui left icon input">
             <i class="user icon"></i>
             <input type="text" formControlName="nickname" name="nickname" placeholder="Nickname">
           </div>
         </div>
-        <div class="field" [class.error]="errors.password">
+        <div class="field" [class.error]="errorsFields.password">
           <div class="ui left icon input">
             <i class="lock icon"></i>
             <input type="password" formControlName="password" name="password" placeholder="Password">
           </div>
         </div>
-        <div class="field" [class.error]="errors.password_confirmation">
+        <div class="field" [class.error]="errorsFields.password_confirmation">
           <div class="ui left icon input">
             <i class="lock icon"></i>
             <input type="password" formControlName="password_confirmation" name="password_confirmation" placeholder="Password confirmation">
@@ -37,7 +37,7 @@
 
       <div class="ui error message">
         <ul class="list">
-          <li *ngFor="let msg of errorMsgs">{{msg}}</li>
+          <li *ngFor="let msg of errors">{{msg}}</li>
         </ul>
       </div>
 

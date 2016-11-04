@@ -50,7 +50,7 @@ export class OauthFacebookLoginComponent implements OnInit {
     this.authService.oauthLogin(token, 'facebook', null).subscribe(
       (response) => {},
       (error) => {
-        if (error.json().errors.hasOwnProperty('email')) {
+        if (error.json().errorsFields.hasOwnProperty('email')) {
           this.oauthModal.emailModal.show();
         } else {
           this.oauthModal.token = token;

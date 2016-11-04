@@ -2,5 +2,6 @@
   <a routerLink="/signin" *ngIf="!authService.userSignedIn()" class="item" routerLinkActive="active">Sign In</a>
   <a (click)="onLogout()" *ngIf="authService.userSignedIn()" class="item">Logout</a>
   <a routerLink="/settings" class="item" routerLinkActive="active">Settings</a>
+  <a routerLink="/signin/password-resets" class="item" routerLinkActive="active">Reset password</a>
 </div>
 <router-outlet></router-outlet>

@@ -21,7 +21,6 @@ export class OauthGoogleLoginComponent implements OnInit {
   }
 
   initGapi() {
-    gapi.client.setApiKey('HvDIoVVCRFo9s3SB3ZiDB2Jy');
     gapi.auth2.init({
       client_id: '850347064756-5rfgqlolhpdclif1vg0nhbsh9asdg6sd.apps.googleusercontent.com',
       scope: 'https://www.googleapis.com/auth/userinfo.email'
@@ -41,7 +40,7 @@ export class OauthGoogleLoginComponent implements OnInit {
     this.authService.oauthLogin(token, 'google', null).subscribe(
       (response) => {},
       (error) => {
-        if (error.json().errorsFields.hasOwnProperty('email')) {
+        if (error.json().errors_fields.hasOwnProperty('email')) {
           this.oauthModal.emailModal.show();
         } else {
           this.oauthModal.token = token;

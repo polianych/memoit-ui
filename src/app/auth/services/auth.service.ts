@@ -14,14 +14,16 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/share';
 
-import { User, UserToken } from '../models/user';
+import { User, UserToken } from './user';
 
 @Injectable()
 export class AuthService implements CanActivate {
   public currentUserToken: UserToken;
   public currentUser: User;
 
-  constructor(public router: Router, private _http: Http) { }
+  constructor(public router: Router, private _http: Http) {
+    console.log('authService constructor');
+  }
 
   init() {
     this._getUserTokenFromStorage()
@@ -39,7 +41,7 @@ export class AuthService implements CanActivate {
       return true;
     else {
       localStorage.setItem('redirectToAfterAuthentication', window.location.pathname + window.location.search);
-      this.router.navigate(['/signin']);
+      this.router.navigate(['/auth/signin']);
       return false;
     }
   }
@@ -79,7 +81,7 @@ export class AuthService implements CanActivate {
   }
 
   resetPassword(values): Observable<Response> {
-    values.password_reset_url = 'http://memoit.local/signin/password-resets/%{id}?password_reset_token=%{password_reset_token}';
+    values.password_reset_url = 'http://memoit.local/auth/password-resets/%{id}?password_reset_token=%{password_reset_token}';
     let body = JSON.stringify(values);
     let response = this.post('/api/password_resets', body);
     return response;
@@ -139,7 +141,6 @@ export class AuthService implements CanActivate {
         headers: new Headers(baseHeaders)
     });
     baseRequestOptions = baseRequestOptions.merge(requestOptions);
-    console.log('http options', baseRequestOptions);
     let response = this._http.request(new Request(baseRequestOptions)).share();
     this._handleResponse(response);
 
@@ -153,6 +154,7 @@ export class AuthService implements CanActivate {
           if (res.json().hasOwnProperty('user')) {
             this.currentUser = res.json().user;
             if (localStorage.getItem('redirectToAfterAuthentication')) {
+              console.log(localStorage.getItem('redirectToAfterAuthentication'))
               this.router.navigate([localStorage.getItem('redirectToAfterAuthentication')]);
               localStorage.removeItem('redirectToAfterAuthentication');
             } else {

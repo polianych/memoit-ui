@@ -22,7 +22,7 @@
             </div>
             <sm-button class="fluid large primary submit {{isLoading ? 'loading' : ''}}" [disabled]="!form.valid">Login</sm-button>
         <br/>
-        <a routerLink="/signin/password-resets">Forgot password?</a>
+        <a routerLink="/auth/password-resets">Forgot password?</a>
         <div *ngIf="error" class="ui error message">
           <ul class="list">
             <li *ngFor="let msg of errors">{{msg}}</li>
@@ -40,7 +40,7 @@
         <app-oauth-vk-login [oauthModal]="appOauthModal"></app-oauth-vk-login>
       </div>
     <div class="ui message">
-      New to us? <a routerLink="/signup">Sign Up</a><br/>
+      New to us? <a routerLink="/auth/signup">Sign Up</a><br/>
     </div>
   </div>
 </div>

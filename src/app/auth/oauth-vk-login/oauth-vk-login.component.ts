@@ -23,7 +23,7 @@ export class OauthVkLoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.route.routeConfig.path == 'signin/vk'){
+    if (this.route.routeConfig.path == 'oauth/vk'){
         let params = new URLSearchParams(location.hash.substr(1), new QueryEncoder());
         if(params.get('access_token')){
           this.login(params.get('access_token'));

@@ -35,9 +35,9 @@
       </h4>
       <div class="ui message">
         <app-oauth-modal #appOauthModal></app-oauth-modal>
-        <app-oauth-facebook-login [oauthModal]="appOauthModal"></app-oauth-facebook-login>
-        <app-oauth-google-login [oauthModal]="appOauthModal"></app-oauth-google-login>
-        <app-oauth-vk-login [oauthModal]="appOauthModal"></app-oauth-vk-login>
+        <auth-facebook-button></auth-facebook-button>
+        <auth-google-button></auth-google-button>
+        <auth-vk-button></auth-vk-button>
       </div>
     <div class="ui message">
       New to us? <a routerLink="/auth/signup">Sign Up</a><br/>

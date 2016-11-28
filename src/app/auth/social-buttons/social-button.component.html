@@ -1,0 +1,5 @@
+<sm-button class="{{klass}} {{class}}" (click)="authenticate()">
+  <i class="{{klass}} icon"></i>
+  <span #ref><ng-content></ng-content></span>
+  <span *ngIf="ref.childNodes.length == 0">{{title}}</span>
+</sm-button>

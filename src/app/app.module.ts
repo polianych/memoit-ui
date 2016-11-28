@@ -5,13 +5,13 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { NgSemanticModule } from 'ng-semantic';
+import { Ng2Webstorage } from 'ng2-webstorage';
 
 import { AppComponent } from './app.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AuthServicesModule } from './auth/auth-services.module';
-
 
 @NgModule({
   declarations: [
@@ -24,6 +24,7 @@ import { AuthServicesModule } from './auth/auth-services.module';
     HttpModule,
     ReactiveFormsModule,
     NgSemanticModule,
+    Ng2Webstorage,
     AuthServicesModule.forRoot(),
     AppRoutingModule
   ],

@@ -24,6 +24,7 @@
           <div class="ui left icon input">
             <i class="lock icon"></i>
             <input type="password" formControlName="password" name="password" placeholder="Password">
+            <br>
           </div>
         </div>
         <div class="field" [class.error]="errorsFields.password_confirmation">
@@ -46,10 +47,10 @@
     <div class="ui message">
       Already have an account? <a routerLink="/auth/signin">Sign In</a>
       <br/>or<br/>
-      <app-oauth-modal #appOauthModal></app-oauth-modal>
-      <app-oauth-facebook-login [oauthModal]="appOauthModal"></app-oauth-facebook-login>
-      <app-oauth-google-login [oauthModal]="appOauthModal"></app-oauth-google-login>
-      <app-oauth-vk-login [oauthModal]="appOauthModal"></app-oauth-vk-login>
+      <app-oauth-modal></app-oauth-modal>
+      <auth-facebook-button></auth-facebook-button>
+      <auth-google-button></auth-google-button>
+      <auth-vk-button></auth-vk-button>
     </div>
   </div>
 </div>

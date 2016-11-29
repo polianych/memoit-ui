@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/catch';
 interface IPopupOptions {
   height?: number
@@ -14,6 +14,7 @@ export class Oauth2PopupService {
   public name: string;
   public popup: Window;
   private pollingSubscription: Subscription;
+  private previousPromise: Promise<any>;
 
   constructor() {
     let onBeforeUnload: any = window.onbeforeunload;
@@ -49,15 +50,15 @@ export class Oauth2PopupService {
     }).catch((value) => { this.finally(value); throw value });
   }
 
-  schedulePooling(): Observable<String> {
-    let bs = new BehaviorSubject(null);
+  schedulePooling(): Observable<any> {
+    let subj = new Subject();
     this.interval = window.setInterval(() => {
       // Popup closed
       if (this.popup && this.popup.closed) {
-        bs.next('closed');
+        subj.next('closed');
       }
     }, 35);
-    return bs.asObservable();
+    return subj.asObservable();
   }
 
   finally(value: any): any {

@@ -1,4 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable,
+         OpaqueToken,
+         Output,
+         EventEmitter } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
 import {
   Http,
@@ -10,19 +13,28 @@ import {
 } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/share';
 
 import { User, UserToken } from './user';
 
+export interface OauthError {
+  provider: OpaqueToken,
+  access_token: string,
+  errors: Object
+}
 @Injectable()
 export class AuthService implements CanActivate {
+  public oauthError: Observable<OauthError>;
+  private _oauthError: Subject<OauthError> = new Subject();
   public currentUserToken: UserToken;
   public currentUser: User;
 
   constructor(public router: Router, private _http: Http) {
     console.log('authService constructor');
+    this.oauthError = this._oauthError.asObservable();
   }
 
   init() {
@@ -74,10 +86,29 @@ export class AuthService implements CanActivate {
     return response;
   }
 
-  oauthLogin(token: string, provider: string, nickname: any): Observable<Response> {
-    let body = JSON.stringify({ access_token: token, provider: provider, nickname: nickname});
-    let response = this.post('/api/oauth', body);
+  oauthSignIn(provider: OpaqueToken, access_token: string): Observable<Response> {
+    let body = JSON.stringify({ provider: this.getProviderFromOpaqueToken(provider), access_token: access_token});
+    let response = this.post('/api/oauth/sign_in', body);
+    response.subscribe( (value)=> {
+      console.log('Success oauth', this.getProviderFromOpaqueToken(provider))
+    }, (error) => {
+      this._oauthError.next({
+        provider: provider,
+        access_token: access_token,
+        errors: error.json()
+      })
+    })
     return response;
+  }
+
+  oauthSignup(provider: OpaqueToken, access_token: string, user: Object): Observable<Response> {
+    let body = JSON.stringify({ provider: this.getProviderFromOpaqueToken(provider), access_token: access_token, user: user});
+    let response = this.post('/api/oauth/sign_up', body);
+    return response;
+  }
+
+  getProviderFromOpaqueToken(provider: OpaqueToken): string {
+    return provider.toString().replace('Token oauth2.','')
   }
 
   resetPassword(values): Observable<Response> {

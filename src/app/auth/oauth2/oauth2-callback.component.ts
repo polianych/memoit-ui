@@ -19,7 +19,6 @@ export class Oauth2CallbackComponent {
     } else {
       params = url.queryParams;
     }
-    console.log('Localstorage callbacks value', params.state, params)
     this.localStorage.store(params.state, params);
   };
 }

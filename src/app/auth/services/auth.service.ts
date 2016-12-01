@@ -9,7 +9,8 @@ import {
   Headers,
   Request,
   RequestMethod,
-  RequestOptions
+  RequestOptions,
+  URLSearchParams
 } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
@@ -130,8 +131,13 @@ export class AuthService implements CanActivate {
   }
 
   // Standard HTTP requests
-  get(path: string): Observable<Response> {
+  get(path: string, query?: Object): Observable<Response> {
+    let search = new URLSearchParams();
+    for (let i in query) {
+      search.set(i, query[i])
+    }
     return this.sendHttpRequest(new RequestOptions({
+        search: search,
         method: RequestMethod.Get,
         url:    path
     }));

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators, FormGroup} from '@angular/forms';
 import { PostsService } from '../posts.service';
 import { Post } from '../post.interface';
@@ -9,7 +9,6 @@ import { Post } from '../post.interface';
   styleUrls: ['./user-post-form.component.css']
 })
 export class UserPostFormComponent implements OnInit {
-  @Output('postCreated') postCreated: EventEmitter<Post> = new EventEmitter();
   public form: FormGroup;
 
   constructor(public fb: FormBuilder, public postsService: PostsService) {
@@ -22,10 +21,8 @@ export class UserPostFormComponent implements OnInit {
   }
 
   onSubmit(form: FormGroup) {
-    this.postsService.createUserPost(form.value).then((post)=> {
-      this.postCreated.emit(post);
-      this.form.reset();
-    });
+    this.postsService.createUserPost(form.value)
+    this.form.reset();
   }
 
 }

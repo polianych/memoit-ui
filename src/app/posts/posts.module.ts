@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgSemanticModule } from 'ng-semantic';
+import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 
 import { PostsService } from './posts.service';
 import { PostsComponent } from './posts.component';
@@ -17,6 +18,7 @@ import { PostListComponent } from './post-list/post-list.component'
     NgSemanticModule,
     FormsModule,
     ReactiveFormsModule,
+    InfiniteScrollModule,
     RouterModule.forChild([
       { path: '', component: PostsComponent }
     ])

@@ -1,2 +1,2 @@
-<app-user-post-form (postCreated)="onPostCreated($event)" *ngIf="authService.userSignedIn()"></app-user-post-form>
+<app-user-post-form *ngIf="authService.userSignedIn()"></app-user-post-form>
 <app-posts-list [posts]="posts"></app-posts-list>

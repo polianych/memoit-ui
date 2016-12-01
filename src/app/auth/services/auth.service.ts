@@ -61,12 +61,14 @@ export class AuthService implements CanActivate {
   signUp(values: Object): Observable<Response> {
     let body = JSON.stringify({ user: values });
     let response = this.post('/api/users', body);
+    this._handleResponse(response);
     return response;
   }
 
   signIn(values: Object): Observable<Response> {
     let body = JSON.stringify({ user: values });
     let response = this.post('/api/sign_in', body);
+    this._handleResponse(response);
     return response;
   }
 
@@ -83,6 +85,7 @@ export class AuthService implements CanActivate {
 
   validateToken(): Observable<Response> {
     let response = this.get('/api/users/me');
+    this._handleResponse(response);
     return response;
   }
 
@@ -98,12 +101,14 @@ export class AuthService implements CanActivate {
         errors: error.json()
       })
     })
+    this._handleResponse(response);
     return response;
   }
 
   oauthSignup(provider: OpaqueToken, access_token: string, user: Object): Observable<Response> {
     let body = JSON.stringify({ provider: this.getProviderFromOpaqueToken(provider), access_token: access_token, user: user});
     let response = this.post('/api/oauth/sign_up', body);
+    this._handleResponse(response);
     return response;
   }
 
@@ -173,14 +178,12 @@ export class AuthService implements CanActivate {
     });
     baseRequestOptions = baseRequestOptions.merge(requestOptions);
     let response = this._http.request(new Request(baseRequestOptions)).share();
-    this._handleResponse(response);
 
     return response;
   }
 
   private _handleResponse(response: Observable<Response>) {
       response.subscribe(res => {
-        console.log('succ in handle');
           this._parseAuthHeadersFromResponse(<any>res);
           if (res.json().hasOwnProperty('user')) {
             this.currentUser = res.json().user;

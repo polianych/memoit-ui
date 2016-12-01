@@ -1,7 +1,20 @@
-<div class="ui secondary pointing menu">
+<!-- <div class="ui secondary pointing menu">
   <a routerLink="/auth/signin" *ngIf="!authService.userSignedIn()" class="item" routerLinkActive="active">Sign In</a>
-  <a (click)="onLogout()" *ngIf="authService.userSignedIn()" class="item">Logout</a>
-  <a routerLink="/settings" class="item" routerLinkActive="active">Settings</a>
+  <a  class="item">Logout</a>
+  <a >Settings</a>
   <a routerLink="/auth/password-resets" class="item" routerLinkActive="active">Reset password</a>
+</div> -->
+<sm-menu class="menu pointing">
+  <div class="ui container">
+    <a sm-item icon="bullseye big"></a>
+    <sm-menu class="secondary right menu">
+      <a sm-item icon="sign in big" routerLink="/auth/signin" *ngIf="!authService.userSignedIn()"></a>
+      <a sm-item icon="user big" routerLink="/settings" *ngIf="authService.userSignedIn()"></a>
+      <a sm-item icon="browser big" routerLink="/posts" *ngIf="authService.userSignedIn()"></a>
+      <a sm-item icon="sign out big" (click)="onLogout()" *ngIf="authService.userSignedIn()"></a>
+    </sm-menu>
+  </div>
+</sm-menu>
+<div class="ui main container">
+  <router-outlet></router-outlet>
 </div>
-<router-outlet></router-outlet>

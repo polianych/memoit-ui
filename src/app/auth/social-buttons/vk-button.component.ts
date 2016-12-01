@@ -9,6 +9,7 @@ import { AuthService } from '../services/auth.service';
   templateUrl: './social-button.component.html'
 })
 export class VkButtonComponent extends SocialButtonComponent  {
+  title: string = '';
   klass: string = 'vk';
   icon: string = 'vk';
   token: OpaqueToken = VK;

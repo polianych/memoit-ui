@@ -8,7 +8,8 @@ import { NgSemanticModule } from 'ng-semantic';
 import { PostsService } from './posts.service';
 import { PostsComponent } from './posts.component';
 import { PostsListComponent } from './posts-list/posts-list.component'
-import { UserPostFormComponent } from './user-post-form/user-post-form.component'
+import { UserPostFormComponent } from './user-post-form/user-post-form.component';
+import { PostListComponent } from './post-list/post-list.component'
 
 @NgModule({
   imports: [
@@ -23,7 +24,7 @@ import { UserPostFormComponent } from './user-post-form/user-post-form.component
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
-  declarations: [PostsComponent, PostsListComponent, UserPostFormComponent],
+  declarations: [PostsComponent, PostsListComponent, UserPostFormComponent, PostListComponent],
   providers: [
     PostsService
   ]

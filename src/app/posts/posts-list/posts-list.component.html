@@ -1,9 +1,1 @@
-<sm-cards>
-  <sm-card *ngFor="let post of posts" class="ui card">
-      <card-title> {{post.post.title}} </card-title>
-      <card-subtitle> {{post.post.id}} </card-subtitle>
-      <card-content>
-          {{post.post.content}}
-      </card-content>
-  </sm-card>
-</sm-cards>
+<app-post-list *ngFor="let post of posts" [post]="post" class="ui segment"></app-post-list>

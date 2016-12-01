@@ -1,0 +1,7 @@
+<form class="ui form" (ngSubmit)="onSubmit(form)" [formGroup]="form">
+  <!-- <sm-loader [complete]="!formSubmited" class="inverted" text="Loading..."></sm-loader> -->
+  <sm-textarea label="Conent" rows="3" [control]="form.controls.content"></sm-textarea>
+  <div class="ui container">
+    <sm-button [disabled]="!form.valid" class="ui primary right">Post</sm-button>
+  </div>
+</form>

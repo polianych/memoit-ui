@@ -1,4 +1,5 @@
-[![Stories in Progress](https://badge.waffle.io/polianych/memoit-ui.svg?label=in%20progress&title=Progress](https://waffle.io/polianych/memoit-ui)
+[![Stories in Progress](https://badge.waffle.io/polianych/memoit-ui.svg?label=in%20progress&title=Progress)](http://waffle.io/polianych/memoit-ui)
+
 # MemoitUi
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.17.

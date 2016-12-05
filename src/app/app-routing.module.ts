@@ -9,8 +9,9 @@ import { UnauthorizedCanActivateService } from './auth/services/unauthorized-can
     RouterModule.forRoot([
       { path: '', redirectTo: 'auth/signin', pathMatch: 'full' },
       { path: 'settings', component: UserSettingsComponent, canActivate: [AuthService] },
-      { path: 'auth', loadChildren: 'app/auth/auth.module#AuthModule', data: { preload: true } },
-      { path: 'posts', loadChildren: 'app/posts/posts.module#PostsModule' }
+      { path: 'auth',  loadChildren: 'app/auth/auth.module#AuthModule', data: { preload: true } },
+      { path: 'posts', loadChildren: 'app/posts/posts.module#PostsModule' },
+      { path: 'user',  loadChildren: 'app/users/users.module#UsersModule' }
     ])
   ],
   exports: [

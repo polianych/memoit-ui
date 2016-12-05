@@ -29,6 +29,7 @@ import { PostListComponent } from './post-list/post-list.component'
   declarations: [PostsComponent, PostsListComponent, UserPostFormComponent, PostListComponent],
   providers: [
     PostsService
-  ]
+  ],
+  exports: [ PostsListComponent ]
 })
 export class PostsModule { }

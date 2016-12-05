@@ -1,4 +1,4 @@
-export class User {
+export interface User {
   id:             number;
   email:          string;
   name:           string;
@@ -8,7 +8,7 @@ export class User {
   // image:          any;
 }
 
-export class UserToken {
+export interface UserToken {
   token:  string;
   client: string;
 }

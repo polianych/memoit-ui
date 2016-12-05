@@ -12,7 +12,7 @@ interface PostQuery {
   publisher_id?: number
 }
 @Injectable()
-export class PostsService {
+export class PostService {
   private _posts: BehaviorSubject<Post[]> = new BehaviorSubject([]);
   public posts: Observable<Post[]> = this._posts.asObservable();
   public current_page: BehaviorSubject<number> = new BehaviorSubject(1);

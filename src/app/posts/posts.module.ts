@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { NgSemanticModule } from 'ng-semantic';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 
-import { PostsService } from './posts.service';
+import { PostService } from './post.service';
 import { PostsComponent } from './posts.component';
 import { PostsListComponent } from './posts-list/posts-list.component'
 import { UserPostFormComponent } from './user-post-form/user-post-form.component';
@@ -28,7 +28,7 @@ import { PostListComponent } from './post-list/post-list.component'
   ],
   declarations: [PostsComponent, PostsListComponent, UserPostFormComponent, PostListComponent],
   providers: [
-    PostsService
+    PostService
   ],
   exports: [ PostsListComponent ]
 })

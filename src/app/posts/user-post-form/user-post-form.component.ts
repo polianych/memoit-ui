@@ -1,6 +1,6 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators, FormGroup} from '@angular/forms';
-import { PostsService } from '../posts.service';
+import { PostService } from '../post.service';
 import { Post } from '../post.interface';
 
 @Component({
@@ -11,7 +11,7 @@ import { Post } from '../post.interface';
 export class UserPostFormComponent implements OnInit {
   public form: FormGroup;
 
-  constructor(public fb: FormBuilder, public postsService: PostsService) {
+  constructor(public fb: FormBuilder, public postService: PostService) {
     this.form = fb.group({
       content:  ['', Validators.required]
     });
@@ -21,7 +21,7 @@ export class UserPostFormComponent implements OnInit {
   }
 
   onSubmit(form: FormGroup) {
-    this.postsService.createUserPost(form.value)
+    this.postService.createUserPost(form.value)
     this.form.reset();
   }
 

@@ -6,7 +6,7 @@ import { AuthService } from '../auth/services/auth.service';
 import { Post } from './post.interface'
 import 'rxjs/add/operator/toPromise';
 
-interface PostQuery {
+interface PostsQuery {
   page?: number,
   publisher_type?: string,
   publisher_id?: number
@@ -15,30 +15,32 @@ interface PostQuery {
 export class PostService {
   private _posts: BehaviorSubject<Post[]> = new BehaviorSubject([]);
   public posts: Observable<Post[]> = this._posts.asObservable();
-  public current_page: BehaviorSubject<number> = new BehaviorSubject(1);
-  public total_pages: BehaviorSubject<number> = new BehaviorSubject(0);
-  private query: PostQuery = {};
+  private current_page: BehaviorSubject<number> = new BehaviorSubject(1);
+  private total_pages: BehaviorSubject<number> = new BehaviorSubject(0);
+  public isPostsLoading: boolean = false;
+  private query: PostsQuery = {};
 
   constructor(public authService: AuthService) {
   }
 
-  getPosts(query?: PostQuery) {
+  getPosts(query?: PostsQuery) {
     if (query){
       this.query = query;
     }
     if (query && query.hasOwnProperty('page') && query.page > this.total_pages.getValue()){
-      console.log('This is DNO of posts!');
       return;
     }
+    this.isPostsLoading = true;
     this.authService
       .get('/api/posts', query)
       .subscribe( (response) => {
+        this.isPostsLoading = false;
         let _p = this._posts.getValue()
         _p = _p.concat(response.json().posts as Post[])
         this._posts.next(_p);
         this.current_page.next(response.json().meta.current_page);
         this.total_pages.next(response.json().meta.total_pages);
-      })
+      }, (error) => { console.log(error); this.isPostsLoading = false; })
   }
 
   getNextPage() {

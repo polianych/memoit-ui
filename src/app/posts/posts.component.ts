@@ -14,6 +14,7 @@ export class PostsComponent implements OnInit, OnDestroy {
   public posts: Observable<Post[]>;
 
   constructor(public postService: PostService, public authService: AuthService) {
+    this.postService.resetStore();
     this.posts = this.postService.posts;
     this.posts.subscribe( (value)=>{
       console.log('posts count', value.length);
@@ -25,7 +26,6 @@ export class PostsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.postService.resetStore()
   }
 
 }

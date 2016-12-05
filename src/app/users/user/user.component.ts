@@ -20,6 +20,7 @@ export class UserComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router
   ) {
+      this.postService.resetStore();
       this.userPosts = this.postService.posts;
     }
 

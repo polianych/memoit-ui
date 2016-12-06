@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { User } from '../../auth/services/user';
 import { Post } from '../../posts/post.interface';
+import { AuthService } from '../../auth/services/auth.service';
 import { UserService } from '../user.service';
 import { PostService } from '../../posts/post.service';
 
@@ -17,6 +18,7 @@ export class UserComponent implements OnInit {
   constructor(
     private userService: UserService,
     private postService: PostService,
+    private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router
   ) {

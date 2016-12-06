@@ -1,0 +1,6 @@
+<p *ngIf="rssChannel">
+  {{ rssChannel.title }}<br/>
+  {{ rssChannel.slug }}
+</p>
+
+<app-posts-list [posts]="rssChannelPosts"></app-posts-list>

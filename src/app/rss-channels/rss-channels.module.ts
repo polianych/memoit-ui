@@ -5,8 +5,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgSemanticModule } from 'ng-semantic';
 import { PostsModule } from '../posts/posts.module';
-import { UserComponent } from './user/user.component';
-import { UserService } from './user.service';
+import { RssChannelService } from './rss-channel.service';
+import { RssChannelComponent } from './rss-channel/rss-channel.component';
 
 @NgModule({
   imports: [
@@ -16,10 +16,10 @@ import { UserService } from './user.service';
     ReactiveFormsModule,
     PostsModule,
     RouterModule.forChild([
-      { path: ':nickname', component: UserComponent }
+      { path: ':slug', component: RssChannelComponent }
     ])
   ],
-  declarations: [UserComponent],
-  providers: [UserService]
+  providers: [RssChannelService],
+  declarations: [RssChannelComponent]
 })
-export class UsersModule { }
+export class RssChannelsModule { }

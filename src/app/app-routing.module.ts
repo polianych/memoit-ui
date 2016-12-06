@@ -11,7 +11,8 @@ import { UnauthorizedCanActivateService } from './auth/services/unauthorized-can
       { path: 'settings', component: UserSettingsComponent, canActivate: [AuthService] },
       { path: 'auth',  loadChildren: 'app/auth/auth.module#AuthModule', data: { preload: true } },
       { path: 'posts', loadChildren: 'app/posts/posts.module#PostsModule' },
-      { path: 'user',  loadChildren: 'app/users/users.module#UsersModule' }
+      { path: 'user',  loadChildren: 'app/users/users.module#UsersModule' },
+      { path: 'rss_channel',  loadChildren: 'app/rss-channels/rss-channels.module#RssChannelsModule' }
     ])
   ],
   exports: [

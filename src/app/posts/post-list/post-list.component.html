@@ -1,3 +1,4 @@
 <p *ngIf="post.user">Posted by: <a [routerLink]="['/user/' + post.user.nickname]">{{post.user.nickname}}</a></p>
+<p *ngIf="post.rss_channel">Posted by: <a [routerLink]="['/rss_channel/' + post.rss_channel.slug]">{{post.rss_channel.title}}</a></p>
 <b>{{post.post.title}}</b>
 <p>{{post.post.content}}</p>

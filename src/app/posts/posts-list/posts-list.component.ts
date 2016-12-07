@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PostService } from '../post.service';
-import { Post } from '../post.interface';
+import { PostStoreService } from '../../stores/post-store.service';
+import { Post } from '../../stores/interfaces/post.interface';
 
 @Component({
   selector: 'app-posts-list',
@@ -10,13 +10,13 @@ import { Post } from '../post.interface';
 
 export class PostsListComponent implements OnInit {
   @Input('posts') posts: Post[];
-  constructor(public postService: PostService) { }
+  constructor(public postStore: PostStoreService) { }
 
   ngOnInit() {
   }
 
   onScrollDown() {
-    this.postService.getNextPage()
+    this.postStore.getNextPage()
   }
 
 }

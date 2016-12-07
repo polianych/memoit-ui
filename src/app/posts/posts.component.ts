@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
-import { PostService } from './post.service';
-import { Post } from './post.interface';
+import { PostStoreService } from '../stores/post-store.service';
+import { Post } from '../stores/interfaces/post.interface';
 import { AuthService } from '../auth/services/auth.service';
 @Component({
   selector: 'app-posts',
@@ -13,16 +13,16 @@ import { AuthService } from '../auth/services/auth.service';
 export class PostsComponent implements OnInit, OnDestroy {
   public posts: Observable<Post[]>;
 
-  constructor(public postService: PostService, public authService: AuthService) {
-    this.postService.resetStore();
-    this.posts = this.postService.posts;
+  constructor(public postStore: PostStoreService, public authService: AuthService) {
+    this.postStore.resetStore();
+    this.posts = this.postStore.items;
     this.posts.subscribe( (value)=>{
       console.log('posts count', value.length);
     })
   }
 
   ngOnInit() {
-    this.postService.getPosts();
+    this.postStore.findAll();
   }
 
   ngOnDestroy() {

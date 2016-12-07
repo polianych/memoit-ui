@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { NgSemanticModule } from 'ng-semantic';
 import { PostsModule } from '../posts/posts.module';
 import { UserComponent } from './user/user.component';
-import { UserService } from './user.service';
 
 @NgModule({
   imports: [
@@ -19,7 +18,6 @@ import { UserService } from './user.service';
       { path: ':nickname', component: UserComponent }
     ])
   ],
-  declarations: [UserComponent],
-  providers: [UserService]
+  declarations: [UserComponent]
 })
 export class UsersModule { }

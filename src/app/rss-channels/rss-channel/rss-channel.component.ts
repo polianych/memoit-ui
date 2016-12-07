@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Post } from '../../posts/post.interface';
-import { RssChannel } from '../rss-channel.interface';
-import { RssChannelService } from '../rss-channel.service';
-import { PostService } from '../../posts/post.service';
+import { Observable } from 'rxjs/Observable';
+import { RssChannel } from '../../stores/interfaces/rss-channel.interface';
+import { RssChannelStoreService } from '../../stores/rss-channel-store.service';
+import { PostStoreService } from '../../stores/post-store.service';
+import { Post } from '../../stores/interfaces/post.interface';
 
 @Component({
   selector: 'app-rss-channel',
@@ -15,20 +15,20 @@ export class RssChannelComponent implements OnInit {
   public rssChannel: RssChannel;
   public rssChannelPosts: Observable<Post[]>;
   constructor(
-    private rssChannelService: RssChannelService,
-    private postService: PostService,
+    private rssChannelStore: RssChannelStoreService,
+    private postStore: PostStoreService,
     private route: ActivatedRoute,
     private router: Router
   ) {
-      this.postService.resetStore();
-      this.rssChannelPosts = this.postService.posts;
+      this.postStore.resetStore();
+      this.rssChannelPosts = this.postStore.items;
     }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-      this.rssChannelService.getRssChannel({slug: params['slug']}).subscribe((rss_channel) => {
-        this.rssChannel = rss_channel;
-        this.postService.getPosts({ publisher_type: 'RssChannel', publisher_id: this.rssChannel.id });
+      this.rssChannelStore.find(params['slug']).subscribe((rss_channel) => {
+        this.rssChannel = rss_channel as RssChannel;
+        this.postStore.findAll({ publisher_type: 'RssChannel', publisher_id: this.rssChannel.id });
       });
     })
   }

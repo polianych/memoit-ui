@@ -19,7 +19,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/share';
 
-import { User, UserToken } from './user';
+import { User, UserToken } from '../../stores/interfaces/user.interface';
 
 export interface OauthError {
   provider: OpaqueToken,

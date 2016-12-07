@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { NgSemanticModule } from 'ng-semantic';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 
-import { PostService } from './post.service';
 import { PostsComponent } from './posts.component';
 import { PostsListComponent } from './posts-list/posts-list.component'
 import { UserPostFormComponent } from './user-post-form/user-post-form.component';
@@ -27,9 +26,6 @@ import { PostListComponent } from './post-list/post-list.component'
     CUSTOM_ELEMENTS_SCHEMA
   ],
   declarations: [PostsComponent, PostsListComponent, UserPostFormComponent, PostListComponent],
-  providers: [
-    PostService
-  ],
   exports: [ PostsListComponent, UserPostFormComponent ]
 })
 export class PostsModule { }

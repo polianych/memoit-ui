@@ -12,7 +12,7 @@ import { UserSettingsComponent } from './user-settings/user-settings.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AuthServicesModule } from './auth/auth-services.module';
-
+import { StoresModule } from './stores/stores.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +26,8 @@ import { AuthServicesModule } from './auth/auth-services.module';
     NgSemanticModule,
     Ng2Webstorage,
     AuthServicesModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    StoresModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { User } from '../../auth/services/user';
-import { Post } from '../../posts/post.interface';
 import { AuthService } from '../../auth/services/auth.service';
-import { UserService } from '../user.service';
-import { PostService } from '../../posts/post.service';
+import { UserStoreService } from '../../stores/user-store.service';
+import { PostStoreService } from '../../stores/post-store.service';
+import { User } from '../../stores/interfaces/user.interface';
+import { Post } from '../../stores/interfaces/post.interface';
 
 @Component({
   selector: 'app-user',
@@ -16,21 +16,22 @@ export class UserComponent implements OnInit {
   public user: User;
   public userPosts: Observable<Post[]>;
   constructor(
-    private userService: UserService,
-    private postService: PostService,
+    private userStore: UserStoreService,
+    private postStore: PostStoreService,
     private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router
   ) {
-      this.postService.resetStore();
-      this.userPosts = this.postService.posts;
+      this.postStore.resetStore();
+      this.userPosts = this.postStore.items;
     }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-      this.userService.getUser({nickname: params['nickname']}).subscribe((user) => {
-        this.user = user;
-        this.postService.getPosts({ publisher_type: 'User', publisher_id: this.user.id });
+      this.userStore.find(params['nickname']).subscribe((user) => {
+        console.log('user', user);
+        this.user = user as User;
+        this.postStore.findAll({ publisher_type: 'User', publisher_id: this.user.id });
       });
     })
   }

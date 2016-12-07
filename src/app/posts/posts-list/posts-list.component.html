@@ -2,12 +2,12 @@
         infinite-scroll
         [infiniteScrollDistance]="1"
         [infiniteScrollThrottle]="42"
-        [infiniteScrollDisabled]="postService.isPostsLoading"
+        [infiniteScrollDisabled]="postStore.isItemsLoading"
         (scrolled)="onScrollDown()">
 <app-post-list *ngFor="let post of (posts | async)" [post]="post" class="ui segment"></app-post-list>
-<div class="ui segment" *ngIf="postService.isPostsLoading">
+<div class="ui segment" *ngIf="postStore.isItemsLoading">
   <div class="ui active centered inline loader"></div>
 </div>
-<div class="ui center aligned segment" *ngIf="!postService.isPostsLoading && (posts | async).length == 0">
+<div class="ui center aligned segment" *ngIf="!postStore.isItemsLoading && (posts | async).length == 0">
     <p><b>No posts yet!</b></p>
 </div>

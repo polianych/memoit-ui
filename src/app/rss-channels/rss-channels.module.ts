@@ -4,20 +4,15 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgSemanticModule } from 'ng-semantic';
-import { PostsModule } from '../posts/posts.module';
+import { RssChannelsSharedModule } from './rss-channels-shared.module';
 import { RssChannelComponent } from './rss-channel/rss-channel.component';
 
 @NgModule({
   imports: [
-    CommonModule,
-    NgSemanticModule,
-    FormsModule,
-    ReactiveFormsModule,
-    PostsModule,
+    RssChannelsSharedModule,
     RouterModule.forChild([
       { path: ':slug', component: RssChannelComponent }
     ])
-  ],
-  declarations: [ RssChannelComponent ]
+  ]
 })
 export class RssChannelsModule { }

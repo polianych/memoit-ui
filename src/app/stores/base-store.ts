@@ -25,7 +25,6 @@ export abstract class BaseStore {
       .post(this.store_endpoint, body)
       .subscribe(response => {
         let _p = this._items.getValue()
-        console.log('create: ', response.json(),  this.singular_key)
         _p.unshift(response.json()[this.singular_key])
         this._items.next(_p)
       });

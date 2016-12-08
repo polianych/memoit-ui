@@ -1,0 +1,27 @@
+<div class="ui segment">
+  <sm-select class="fluid" placeholder="Choose category" (onChange)="onRssCategoryChange($event)">
+    <option *ngFor="let item of (rssCategories | async)" [value]="item?.id">
+      {{item?.title}}
+    </option>
+  </sm-select>
+</div>
+<div class="ui segment" style="height: 100%;"
+        infinite-scroll
+        [infiniteScrollDistance]="1"
+        [infiniteScrollThrottle]="42"
+        [infiniteScrollDisabled]="rssChannelStore.isItemsLoading"
+        (scrolled)="onScrollDown()">
+  <sm-cards>
+    <sm-card *ngFor="let channel of (rssChannels | async)" class="card">
+        <card-title> {{channel?.title}} </card-title>
+        <card-subtitle> TODO count of posts  </card-subtitle>
+        <card-content>
+            {{channel?.description}}
+        </card-content>
+        <sm-button class="bottom attached fluid" icon="add">TODO Subscribe</sm-button>
+    </sm-card>
+  </sm-cards>
+</div>
+<div class="ui segment" *ngIf="rssChannelStore.isItemsLoading">
+  <div class="ui active centered inline loader"></div>
+</div>

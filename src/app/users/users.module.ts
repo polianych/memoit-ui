@@ -1,19 +1,13 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from "@angular/forms";
-import { CommonModule } from '@angular/common';
+import { BaseSharedModule} from '../shared/base-shared.module';
 import { RouterModule } from '@angular/router';
-import { NgSemanticModule } from 'ng-semantic';
-import { PostsModule } from '../posts/posts.module';
+import { PostsSharedModule } from '../posts/posts-shared.module';
 import { UserComponent } from './user/user.component';
 
 @NgModule({
   imports: [
-    CommonModule,
-    NgSemanticModule,
-    FormsModule,
-    ReactiveFormsModule,
-    PostsModule,
+    BaseSharedModule,
+    PostsSharedModule,
     RouterModule.forChild([
       { path: ':nickname', component: UserComponent }
     ])

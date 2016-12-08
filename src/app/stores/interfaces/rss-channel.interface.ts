@@ -4,5 +4,7 @@ export interface RssChannel {
   title: string,
   url: string,
   description: string,
-  rss_category_id: number
+  rss_category_id: number,
+  subscribed: boolean,
+  subscription_id: number|null
 }

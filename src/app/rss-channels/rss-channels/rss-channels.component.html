@@ -18,7 +18,8 @@
         <card-content>
             {{channel?.description}}
         </card-content>
-        <sm-button class="bottom attached fluid" icon="add">TODO Subscribe</sm-button>
+        <app-publisher-subscription-button [subscriptionId]="channel?.subscription_id" [publisherId]="channel?.id" publisherType="RssChannel" [subscribed]="channel?.subscribed"></app-publisher-subscription-button>
+        <!-- <sm-button class="bottom attached fluid" icon="add">TODO Subscribe</sm-button> -->
     </sm-card>
   </sm-cards>
 </div>

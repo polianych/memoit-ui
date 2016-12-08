@@ -16,7 +16,7 @@ export class PostsListComponent implements OnInit {
   }
 
   onScrollDown() {
-    this.postStore.getNextPage()
+    this.postStore.getNextPage();
   }
 
 }

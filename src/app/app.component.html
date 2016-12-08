@@ -8,6 +8,7 @@
   <div class="ui container">
     <a sm-item icon="bullseye big"></a>
     <sm-menu class="secondary right menu">
+      <a sm-item icon="lightning big" routerLink="/discover" *ngIf="authService.userSignedIn()"></a>
       <a sm-item icon="sign in big" routerLink="/auth/signin" *ngIf="!authService.userSignedIn()"></a>
       <a sm-item icon="user big" routerLink="/settings" *ngIf="authService.userSignedIn()"></a>
       <a sm-item icon="browser big" routerLink="/posts" *ngIf="authService.userSignedIn()"></a>

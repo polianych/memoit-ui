@@ -1,4 +1,5 @@
 <div class="ui segment">
+  <div *ngIf="rssCategoryStore.isItemsLoading" class="ui active loader"></div>
   <sm-select class="fluid" placeholder="Choose category" (onChange)="onRssCategoryChange($event)">
     <option *ngFor="let item of (rssCategories | async)" [value]="item?.id">
       {{item?.title}}
@@ -13,12 +14,17 @@
         (scrolled)="onScrollDown()">
   <sm-cards>
     <sm-card *ngFor="let channel of (rssChannels | async)" class="card">
-        <card-title> {{channel?.title}} </card-title>
+        <card-title> <a [routerLink]="['/rss_channel/' + channel?.slug]">{{channel?.title}}</a> </card-title>
         <card-subtitle> TODO count of posts  </card-subtitle>
         <card-content>
             {{channel?.description}}
         </card-content>
-        <sm-button class="bottom attached fluid" icon="add">TODO Subscribe</sm-button>
+        <app-publisher-subscription-button
+          [subscriptionId]="channel?.subscription_id"
+          [publisherId]="channel?.id"
+          publisherType="RssChannel"
+          [subscribed]="channel?.subscribed">
+        </app-publisher-subscription-button>
     </sm-card>
   </sm-cards>
 </div>

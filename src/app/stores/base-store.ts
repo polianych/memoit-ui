@@ -20,14 +20,27 @@ export abstract class BaseStore {
   }
 
   create(values: Object) {
-    let body = JSON.stringify({ post: values});
-    this.authService
+    let body = JSON.stringify({ [this.singular_key]: values });
+    let response = this.authService
       .post(this.store_endpoint, body)
-      .subscribe(response => {
+    response.subscribe(response => {
         let _p = this._items.getValue()
         _p.unshift(response.json()[this.singular_key])
         this._items.next(_p)
-      });
+    });
+    return response.map((response) => { return response.json()[this.singular_key]; });
+  }
+
+  destroy(id: string|number) {
+    let response = this.authService.delete(this.store_endpoint + '/' + id)
+    response.subscribe(response => {
+        console.log('Destroyed', this.singular_key, id);
+        //TODO shift element by id
+        // let _p = this._items.getValue()
+        // _p.unshift(response.json()[this.singular_key])
+        // this._items.next(_p)
+    });
+    return response;
   }
 
   findAll(query?: any) {

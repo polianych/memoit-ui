@@ -1,1 +1,5 @@
 :host { display:block!important; }
+.memoit-image-container {
+  max-height: 500px;
+  overflow: hidden;
+}

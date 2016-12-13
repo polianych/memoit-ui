@@ -1,4 +1,13 @@
+<p>ID: {{post?.post.id}}</p>
 <p *ngIf="post.user">Posted by: <a [routerLink]="['/user/' + post.user.nickname]">{{post.user.nickname}}</a></p>
 <p *ngIf="post.rss_channel">Posted by: <a [routerLink]="['/rss_channel/' + post.rss_channel.slug]">{{post.rss_channel.title}}</a></p>
 <b>{{post.post.title}}</b>
 <p>{{post.post.content}}</p>
+<div *ngIf="post.rss_channel && post.rss_post.media_thumbnail && post.video_sources.length == 0" class="memoit-image-container">
+  <img class="ui fluid image memoit-post-image" [src]="post.rss_post.media_thumbnail"/>
+</div>
+<div *ngIf="post.video_sources.length > 0">
+  <video class="ui fluid image" preload="auto" loop muted autoplay="autoplay" controls="controls">
+    <source *ngFor="let source of post.video_sources" [src]="source.source_url" [type]="source.mime_type"/>
+  </video>
+</div>

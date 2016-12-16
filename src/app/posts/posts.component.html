@@ -1,2 +1,9 @@
 <app-user-post-form *ngIf="authService.userSignedIn()"></app-user-post-form>
+<div class="ui clearing segment">
+  <sm-select class="floated right" label="Filter posts by:" (onChange)="onFilterChange($event)">
+    <option *ngFor="let item of filterOptions" [value]="item?.value">
+      {{item?.title}}
+    </option>
+  </sm-select>
+</div>
 <app-posts-list [posts]="posts"></app-posts-list>

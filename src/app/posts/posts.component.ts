@@ -11,6 +11,11 @@ import { AuthService } from '../auth/services/auth.service';
   styleUrls: ['./posts.component.css']
 })
 export class PostsComponent implements OnInit, OnDestroy {
+  public filterOptions = [
+    { value: 'all', title: 'All' },
+    { value: 'RssChannel', title: 'Rss' },
+    { value: 'User', title: 'User' }
+  ]
   public posts: Observable<Post[]>;
 
   constructor(public postStore: PostStoreService, public authService: AuthService) {
@@ -26,6 +31,12 @@ export class PostsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+  }
+
+  onFilterChange(event) {
+    let params = event == 'all' ? {} : { publisher_type: event };
+    this.postStore.resetStore();
+    this.postStore.findAll(params);
   }
 
 }

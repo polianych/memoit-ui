@@ -1,9 +1,10 @@
 <app-user-post-form *ngIf="authService.userSignedIn()"></app-user-post-form>
-<div class="ui clearing segment">
-  <sm-select class="floated right" label="Filter posts by:" (onChange)="onFilterChange($event)">
-    <option *ngFor="let item of filterOptions" [value]="item?.value">
+<div class="ui right floated segment">
+  <sm-dropdown title="Filter posts" icon="filter" (onChange)="onFilterChange($event)">
+    <div class="item" *ngFor="let item of filterOptions">
       {{item?.title}}
-    </option>
-  </sm-select>
+    </div>
+  </sm-dropdown>
 </div>
+<div class="ui clearing divider"></div>
 <app-posts-list [posts]="posts"></app-posts-list>

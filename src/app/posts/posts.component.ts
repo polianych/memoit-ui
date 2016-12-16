@@ -34,7 +34,9 @@ export class PostsComponent implements OnInit, OnDestroy {
   }
 
   onFilterChange(event) {
-    let params = event == 'all' ? {} : { publisher_type: event };
+    let item = this.filterOptions.find((x)=> x.title == event).value;
+    let params = item == 'all' ? {} : { publisher_type: item };
+
     this.postStore.resetStore();
     this.postStore.findAll(params);
   }

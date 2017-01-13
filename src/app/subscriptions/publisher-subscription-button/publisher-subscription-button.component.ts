@@ -32,7 +32,7 @@ export class PublisherSubscriptionButtonComponent implements OnInit {
       this.subscriptionStore.create({
         publisher_type: this.publisherType,
         publisher_id: this.publisherId
-      }).subscribe( (v)=> {
+      }, false).subscribe( (v)=> {
         this.subscriptionId = v.id;
         this.subscribed = true;
         this.isLoading = false;

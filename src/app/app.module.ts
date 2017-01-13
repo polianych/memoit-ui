@@ -13,10 +13,12 @@ import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthServicesModule } from './auth/auth-services.module';
 import { StoresModule } from './stores/stores.module';
+import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
 @NgModule({
   declarations: [
     AppComponent,
     UserSettingsComponent,
+    SubscriptionsComponent,
   ],
   imports: [
     BrowserModule,

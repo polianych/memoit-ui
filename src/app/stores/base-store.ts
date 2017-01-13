@@ -9,6 +9,10 @@ export abstract class BaseStore {
   public items: Observable<Object[]> = this._items.asObservable();
   public isItemsLoading: boolean = false;
 
+  private _item: BehaviorSubject<Object> = new BehaviorSubject({});
+  public item: Observable<Object> = this._item.asObservable();
+  public isItemLoading: boolean = false;
+
   private currentPage: BehaviorSubject<number> = new BehaviorSubject(1);
   private totalPages: BehaviorSubject<number> = new BehaviorSubject(0);
   private allQuery: any = {};
@@ -19,14 +23,16 @@ export abstract class BaseStore {
   constructor(protected authService: AuthService) {
   }
 
-  create(values: Object) {
+  create(values: Object, appendToItems: boolean = true) {
     let body = JSON.stringify({ [this.singular_key]: values });
     let response = this.authService
       .post(this.store_endpoint, body)
     response.subscribe(response => {
-        let _p = this._items.getValue()
-        _p.unshift(response.json()[this.singular_key])
-        this._items.next(_p)
+      if(appendToItems){
+        let _p = this._items.getValue();
+        _p.unshift(response.json()[this.singular_key]);
+        this._items.next(_p);
+      }
     });
     return response.map((response) => { return response.json()[this.singular_key]; });
   }
@@ -35,7 +41,7 @@ export abstract class BaseStore {
     let response = this.authService.delete(this.store_endpoint + '/' + id)
     response.subscribe(response => {
         console.log('Destroyed', this.singular_key, id);
-        //TODO shift element by id
+        //TODO splice element by id
         // let _p = this._items.getValue()
         // _p.unshift(response.json()[this.singular_key])
         // this._items.next(_p)
@@ -63,9 +69,14 @@ export abstract class BaseStore {
       }, (error) => { console.log(error); this.isItemsLoading = false; })
   }
 
-  find(id: string|number): Observable<any>{
-    return this.authService
-      .get(this.store_endpoint + '/' + id).map((response) => { return response.json()[this.singular_key]; })
+  find(id: string|number) {
+    this._item.next({});
+    this.isItemLoading = true;
+    this.authService
+      .get(this.store_endpoint + '/' + id).subscribe( (response) => {
+        this.isItemLoading = false;
+        this._item.next(response.json()[this.singular_key]);
+      }, (error) => { console.log("Error store find():", error); this.isItemLoading = false; })
   }
 
   getNextPage() {

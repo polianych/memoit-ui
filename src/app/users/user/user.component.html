@@ -1,7 +1,8 @@
-<app-user-post-form *ngIf="authService.userSignedIn() && user && user.id == authService.currentUser.id"></app-user-post-form>
-
-<p *ngIf="user">
-{{ user.nickname }}
+<p>
+  {{(user | async)?.nickname}}
+</p>
+<p>
+  <a [routerLink]="['/user', (user | async)?.nickname, 'subscriptions']">Subscriptions</a>
 </p>
 
-<app-posts-list [posts]="userPosts"></app-posts-list>
+<router-outlet></router-outlet>

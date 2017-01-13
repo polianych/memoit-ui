@@ -13,26 +13,18 @@ import { Post } from '../../stores/interfaces/post.interface';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  public user: User;
-  public userPosts: Observable<Post[]>;
+  public user: Observable<User>;
   constructor(
     private userStore: UserStoreService,
-    private postStore: PostStoreService,
-    private authService: AuthService,
-    private route: ActivatedRoute,
-    private router: Router
+    private route: ActivatedRoute
   ) {
-      this.postStore.resetStore();
-      this.userPosts = this.postStore.items;
+      this.user = this.userStore.item;
+      console.log('user:', this.user)
     }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-      this.userStore.find(params['nickname']).subscribe((user) => {
-        console.log('user', user);
-        this.user = user as User;
-        this.postStore.findAll({ publisher_type: 'User', publisher_id: this.user.id });
-      });
+      this.userStore.find(params['nickname']);
     })
   }
 

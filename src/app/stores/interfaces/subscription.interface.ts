@@ -4,5 +4,7 @@ export interface Subscription {
   user_id: number,
   publisher_type: string,
   publisher_id: number,
-  publisher: Object
+  publisher_title: string,
+  user_subscription_id: number,
+  subscribed: boolean
 }

@@ -1,0 +1,2 @@
+<app-user-post-form *ngIf="authService.userSignedIn() && !!(user | async) && (user | async)?.id == authService.currentUser.id"></app-user-post-form>
+<app-posts-list [posts]="userPosts"></app-posts-list>

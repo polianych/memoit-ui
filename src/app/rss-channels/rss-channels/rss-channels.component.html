@@ -12,21 +12,25 @@
         [infiniteScrollThrottle]="42"
         [infiniteScrollDisabled]="rssChannelStore.isItemsLoading"
         (scrolled)="onScrollDown()">
-  <sm-cards>
-    <sm-card *ngFor="let channel of (rssChannels | async)" class="card">
-        <card-title> <a [routerLink]="['/rss_channel/' + channel?.slug]">{{channel?.title}}</a> </card-title>
-        <card-subtitle> TODO count of posts  </card-subtitle>
-        <card-content>
-            {{channel?.description}}
-        </card-content>
+  <div class="ui middle aligned divided list">
+    <div *ngFor="let channel of (rssChannels | async)" class="item">
+      <div class="right floated content">
         <app-publisher-subscription-button
           [subscriptionId]="channel?.subscription_id"
           [publisherId]="channel?.id"
           publisherType="RssChannel"
           [subscribed]="channel?.subscribed">
         </app-publisher-subscription-button>
-    </sm-card>
-  </sm-cards>
+      </div>
+      <div class="middle aligned content">
+        <div class="header"><a [routerLink]="['/rss_channel/' + channel?.slug]">{{channel?.title}}</a></div>
+        {{channel?.description}}
+      </div>
+    </div>
+  </div>
+  <div *ngIf="(rssChannels | async)?.length == 0 && !rssChannelStore.isItemsLoading" class="ui segment center aligned">
+    <p> No rss found </p>
+  </div>
 </div>
 <div class="ui segment" *ngIf="rssChannelStore.isItemsLoading">
   <div class="ui active centered inline loader"></div>

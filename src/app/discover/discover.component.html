@@ -1,4 +1,9 @@
-<p>
-  discover works!
-</p>
-<app-rss-channels></app-rss-channels>
+<div class="ui secondary pointing menu">
+  <a routerLink="/discover/rss" class="item" routerLinkActive="active">
+    Rss
+  </a>
+  <a routerLink="/discover/users" class="item" routerLinkActive="active">
+    Users
+  </a>
+</div>
+<router-outlet></router-outlet>

@@ -1,0 +1,36 @@
+<div class="ui segment">
+  <div class="ui icon input fluid">
+    <input #search type="text" placeholder="Type nickname or name..." (keyup.enter)="onSearchChange(search.value)">
+    <i (click)="onSearchChange(search.value)" class="inverted circular search link icon"></i>
+  </div>
+</div>
+
+<div class="ui segment" style="height: 100%;"
+        infinite-scroll
+        [infiniteScrollDistance]="1"
+        [infiniteScrollThrottle]="42"
+        [infiniteScrollDisabled]="userStore.isItemsLoading"
+        (scrolled)="onScrollDown()">
+  <div class="ui middle aligned divided list">
+    <div *ngFor="let user of (users | async)" class="item">
+      <div class="right floated content">
+        <app-publisher-subscription-button
+          [subscriptionId]="user?.user_subscription_id"
+          [publisherId]="user?.id"
+          publisherType="User"
+          [subscribed]="user?.subscribed">
+        </app-publisher-subscription-button>
+      </div>
+      <div class="middle aligned content">
+        <div class="header">{{user.nickname}}</div>
+        {{user.name}}
+      </div>
+    </div>
+  </div>
+  <div *ngIf="(users | async)?.length == 0 && !userStore.isItemsLoading" class="ui segment center aligned">
+    <p> No users found </p>
+  </div>
+</div>
+<div class="ui segment" *ngIf="userStore.isItemsLoading">
+  <div class="ui active centered inline loader"></div>
+</div>

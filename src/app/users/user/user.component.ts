@@ -3,9 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AuthService } from '../../auth/services/auth.service';
 import { UserStoreService } from '../../stores/user-store.service';
-import { PostStoreService } from '../../stores/post-store.service';
 import { User } from '../../stores/interfaces/user.interface';
-import { Post } from '../../stores/interfaces/post.interface';
 
 @Component({
   selector: 'app-user',

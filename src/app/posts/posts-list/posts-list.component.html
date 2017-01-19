@@ -5,6 +5,11 @@
         [infiniteScrollDisabled]="postStore.isItemsLoading"
         (scrolled)="onScrollDown()">
 <app-post-list *ngFor="let post of (posts | async)" [post]="post" class="ui segment"></app-post-list>
+<div class="ui active centred" *ngIf="postStore.loadMore && !postStore.isItemsLoading">
+  <button (click)="onScrollDown()" class="ui button fluid">
+    Load more
+  </button>
+</div>
 <div class="ui segment" *ngIf="postStore.isItemsLoading">
   <div class="ui active centered inline loader"></div>
 </div>

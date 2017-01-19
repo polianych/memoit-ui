@@ -14,7 +14,8 @@ export class DiscoverUsersComponent implements OnInit {
   public users: Observable<User[]>;
   constructor(
     private userStore: UserStoreService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthService
   ) {
 
     }

@@ -20,6 +20,7 @@
         </div>
         <div class="column">
           <app-publisher-subscription-button
+          *ngIf="!(authService.userSignedIn() && user.id == authService.currentUser.id)"
           [subscriptionId]="user?.user_subscription_id"
           [publisherId]="user?.id"
           publisherType="User"

@@ -7,6 +7,7 @@ import { SubscriptionStoreService } from '../../stores/subscription-store.servic
   styleUrls: ['./publisher-subscription-button.component.css']
 })
 export class PublisherSubscriptionButtonComponent implements OnInit {
+  @Input('class') class: string;
   @Input('publisherType') publisherType: string;
   @Input('publisherId') publisherId: number;
   @Input('subscriptionId') subscriptionId: number;
@@ -15,6 +16,10 @@ export class PublisherSubscriptionButtonComponent implements OnInit {
   constructor(private subscriptionStore: SubscriptionStoreService) { }
 
   ngOnInit() {
+    if (!this.class || this.class == ''){
+      console.log(this.class);
+      this.class = 'mini'
+    }
   }
 
   onClick() {

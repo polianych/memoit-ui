@@ -13,17 +13,19 @@
         (scrolled)="onScrollDown()">
   <div class="ui middle aligned divided list">
     <div *ngFor="let user of (users | async)" class="item">
-      <div class="right floated content">
-        <app-publisher-subscription-button
+      <div class="ui equal width grid">
+        <div class="thirteen wide computer thirteen wide tablet mobile column eleven wide tablet mobile ten wide mobile column">
+          <div class="header"><a [routerLink]="['/user', user.nickname]">{{user.nickname}}</a></div>
+          {{user.name}}
+        </div>
+        <div class="column">
+          <app-publisher-subscription-button
           [subscriptionId]="user?.user_subscription_id"
           [publisherId]="user?.id"
           publisherType="User"
           [subscribed]="user?.subscribed">
         </app-publisher-subscription-button>
-      </div>
-      <div class="middle aligned content">
-        <div class="header">{{user.nickname}}</div>
-        {{user.name}}
+        </div>
       </div>
     </div>
   </div>
@@ -31,6 +33,11 @@
     <p> No users found </p>
   </div>
 </div>
+<div class="ui active centred" *ngIf="userStore.loadMore && !userStore.isItemsLoading">
+  <button (click)="onScrollDown()" class="ui button fluid">
+    Load more
+  </button>
+</div>
 <div class="ui segment" *ngIf="userStore.isItemsLoading">
-  <div class="ui active centered inline loader"></div>
+  <div class="ui active centered inline  small loader"></div>
 </div>

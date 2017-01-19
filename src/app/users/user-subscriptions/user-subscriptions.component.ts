@@ -37,5 +37,9 @@ export class UserSubscriptionsComponent implements OnInit {
   ngOnDestroy() {
     this._userSub.unsubscribe();
   }
+  onScrollDown() {
+    this.subscriptionStore.getNextPage();
+  }
+
 
 }

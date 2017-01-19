@@ -9,28 +9,36 @@
 <div class="ui segment" style="height: 100%;"
         infinite-scroll
         [infiniteScrollDistance]="1"
-        [infiniteScrollThrottle]="42"
+        [infiniteScrollThrottle]="300"
         [infiniteScrollDisabled]="rssChannelStore.isItemsLoading"
         (scrolled)="onScrollDown()">
+
   <div class="ui middle aligned divided list">
     <div *ngFor="let channel of (rssChannels | async)" class="item">
-      <div class="right floated content">
-        <app-publisher-subscription-button
-          [subscriptionId]="channel?.subscription_id"
-          [publisherId]="channel?.id"
-          publisherType="RssChannel"
-          [subscribed]="channel?.subscribed">
-        </app-publisher-subscription-button>
-      </div>
-      <div class="middle aligned content">
-        <div class="header"><a [routerLink]="['/rss_channel/' + channel?.slug]">{{channel?.title}}</a></div>
-        {{channel?.description}}
+      <div class="ui equal width grid">
+        <div class="thirteen wide computer thirteen wide tablet mobile column eleven wide tablet mobile ten wide mobile column">
+          <div class="header"><a [routerLink]="['/rss_channel/' + channel?.slug]">{{channel?.title}}</a></div>
+          {{channel?.description}}
+        </div>
+        <div class="column">
+          <app-publisher-subscription-button
+            [subscriptionId]="channel?.subscription_id"
+            [publisherId]="channel?.id"
+            publisherType="RssChannel"
+            [subscribed]="channel?.subscribed">
+          </app-publisher-subscription-button>
+        </div>
       </div>
     </div>
   </div>
-  <div *ngIf="(rssChannels | async)?.length == 0 && !rssChannelStore.isItemsLoading" class="ui segment center aligned">
+  <div *ngIf="(rssChannels | async)?.length == 0 && !rssChannelStore.isItemsLoading && selectedCategoryId" class="ui segment center aligned">
     <p> No rss found </p>
   </div>
+</div>
+<div class="ui active centred" *ngIf="rssChannelStore.loadMore && !rssChannelStore.isItemsLoading">
+  <button (click)="onScrollDown()" class="ui button fluid">
+    Load more
+  </button>
 </div>
 <div class="ui segment" *ngIf="rssChannelStore.isItemsLoading">
   <div class="ui active centered inline loader"></div>

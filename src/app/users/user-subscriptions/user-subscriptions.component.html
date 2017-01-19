@@ -1,16 +1,39 @@
-<div class="ui middle aligned divided list">
-  <div class="item" *ngFor="let subscription of (subscriptions | async)">
-    <div class="right floated content">
-      <app-publisher-subscription-button
-        [subscriptionId]="subscription?.user_subscription_id"
-        [publisherId]="subscription?.publisher_id"
-        [publisherType]="subscription?.publisher_type"
-        [subscribed]="subscription?.subscribed">
-      </app-publisher-subscription-button>
-    </div>
-    <div class="content">
-      <a *ngIf="subscription.publisher_type == 'User'" [routerLink]="['/user', subscription.publisher_slug]">{{subscription.publisher_title}}</a>
-      <a *ngIf="subscription.publisher_type == 'RssChannel'" [routerLink]="['/rss_channel', subscription.publisher_slug]">{{subscription.publisher_title}}</a>
+<div class="ui segment" style="height: 100%;"
+        infinite-scroll
+        [infiniteScrollDistance]="1"
+        [infiniteScrollThrottle]="300"
+        [infiniteScrollDisabled]="subscriptionStore.isItemsLoading"
+        (scrolled)="onScrollDown()">
+
+  <div class="ui middle aligned divided list">
+    <div *ngFor="let subscription of (subscriptions | async)" class="item">
+      <div class="ui equal width grid">
+        <div class="thirteen wide computer thirteen wide tablet mobile column eleven wide tablet mobile ten wide mobile column">
+          <div class="header">
+            <a *ngIf="subscription.publisher_type == 'User'" [routerLink]="['/user', subscription.publisher_slug]">{{subscription.publisher_title}}</a>
+            <a *ngIf="subscription.publisher_type == 'RssChannel'" [routerLink]="['/rss_channel', subscription.publisher_slug]">{{subscription.publisher_title}}</a>
+        </div>
+        </div>
+        <div class="column">
+          <app-publisher-subscription-button
+            [subscriptionId]="subscription?.user_subscription_id"
+            [publisherId]="subscription?.publisher_id"
+            [publisherType]="subscription?.publisher_type"
+            [subscribed]="subscription?.subscribed">
+          </app-publisher-subscription-button>
+        </div>
+      </div>
     </div>
   </div>
+  <div *ngIf="(subscriptions | async)?.length == 0 && !subscriptionStore.isItemsLoading" class="ui segment center aligned">
+    <p> No subscriptions </p>
+  </div>
+</div>
+<div class="ui active centred" *ngIf="subscriptionStore.loadMore && !subscriptionStore.isItemsLoading">
+  <button (click)="onScrollDown()" class="ui button fluid">
+    Load more
+  </button>
+</div>
+<div class="ui segment" *ngIf="subscriptionStore.isItemsLoading">
+  <div class="ui active centered inline loader"></div>
 </div>

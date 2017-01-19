@@ -13,6 +13,8 @@ export abstract class BaseStore {
   public item: Observable<Object> = this._item.asObservable();
   public isItemLoading: boolean = false;
 
+  public loadMore: boolean = false;
+
   private currentPage: BehaviorSubject<number> = new BehaviorSubject(1);
   private totalPages: BehaviorSubject<number> = new BehaviorSubject(0);
   private allQuery: any = {};
@@ -21,6 +23,9 @@ export abstract class BaseStore {
   protected plural_key: string;
 
   constructor(protected authService: AuthService) {
+    this.totalPages.subscribe( (v) => {
+      this.loadMore = this.currentPage.getValue() != v && v > 0 && document.body.scrollHeight <= document.documentElement.clientHeight
+    });
   }
 
   create(values: Object, appendToItems: boolean = true) {

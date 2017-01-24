@@ -1,0 +1,42 @@
+<div class="centred-form ui middle aligned center aligned grid">
+  <div class="column">
+    <h2 class="ui blue image header">
+      <div class="content">
+        Edit profile
+      </div>
+    </h2>
+    <form class="ui large form" [class.error]="error" (ngSubmit)="onSubmit(form)" [formGroup]="form">
+      <div class="ui stacked segment">
+        <div class="field" [class.error]="errorsFields.email">
+          <div class="ui left icon input">
+            <i class="at icon"></i>
+            <input type="text" disabled [value]="authService.currentUser.email" name="email">
+          </div>
+        </div>
+        <div class="field" [class.error]="errorsFields.name">
+          <div class="ui left icon input">
+            <i class="user icon"></i>
+            <input type="text" [value]="authService.currentUser.name" formControlName="name" name="name" placeholder="Name">
+          </div>
+          <div *ngIf="errorsFields.name" class="ui error message">
+            <ul class="list">
+              <li *ngFor="let msg of errorsFields.name">{{msg}}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="field" [class.error]="errorsFields.nickname">
+          <div class="ui left icon input">
+            <i class="user icon"></i>
+            <input type="text" [value]="authService.currentUser.nickname" formControlName="nickname" name="nickname" placeholder="Nickname">
+          </div>
+          <div *ngIf="errorsFields.nickname" class="ui error message">
+            <ul class="list">
+              <li *ngFor="let msg of errorsFields.nickname">{{msg}}</li>
+            </ul>
+          </div>
+        </div>
+        <sm-button class="large primary submit {{isLoading ? 'loading' : ''}}" [disabled]="!form.valid">Save</sm-button>
+      </div>
+    </form>
+  </div>
+</div>

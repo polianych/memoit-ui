@@ -14,9 +14,6 @@ export class AppComponent {
   }
 
   onLogout() {
-    this.authService.signOut()
-      .subscribe(
-        () => this.router.navigate(['/auth/signin']),
-      );
+    this.authService.signOut();
   }
 }

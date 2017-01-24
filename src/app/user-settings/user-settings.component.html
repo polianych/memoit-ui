@@ -1,3 +1,13 @@
-<p *ngIf="authService.userSignedIn()">
-  Hi, {{authService.currentUser.nickname}}
-</p>
+<div class="ui segment">
+  <div class="ui equal width grid">
+    <div class="five wide column">
+      <div class="ui secondary vertical fluid pointing menu">
+        <a class="item" routerLink="/settings/profile" routerLinkActive="active">Edit profile</a>
+        <a class="item" routerLink="/settings/password" routerLinkActive="active" *ngIf="authService.currentUser.provider == 'email'">Change password</a>
+      </div>
+    </div>
+    <div class="column">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

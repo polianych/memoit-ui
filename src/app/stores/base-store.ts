@@ -38,6 +38,22 @@ export abstract class BaseStore {
         _p.unshift(response.json()[this.singular_key]);
         this._items.next(_p);
       }
+    }, (error) => {});
+    return response.map((response) => { return response.json()[this.singular_key]; });
+  }
+
+  update(id: string|number, values: Object, appendToItems: boolean = true) {
+    let body = JSON.stringify({ [this.singular_key]: values });
+    let response = this.authService
+      .put(this.store_endpoint + '/' +id, body)
+    response.subscribe( (response) => {
+      if(appendToItems){
+        let _p = this._items.getValue();
+        _p.unshift(response.json()[this.singular_key]);
+        this._items.next(_p);
+      }
+    }, (error)=> {
+      console.log("error updating: ", error)
     });
     return response.map((response) => { return response.json()[this.singular_key]; });
   }

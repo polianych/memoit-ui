@@ -76,6 +76,7 @@ export class AuthService implements CanActivate {
   signOut(): Observable<Response> {
     let response = this.delete('/api/sign_out');
     response.subscribe( res => {
+      this.router.navigate(['/auth/signin']);
       this.currentUserToken = null;
       this.currentUser = null;
       localStorage.removeItem('token');
@@ -198,7 +199,7 @@ export class AuthService implements CanActivate {
               this.router.navigate([localStorage.getItem('redirectToAfterAuthentication')]);
               localStorage.removeItem('redirectToAfterAuthentication');
             } else {
-              this.router.navigate(['/settings']);
+              this.router.navigate(['/posts']);
             }
         }
 
